@@ -40,7 +40,12 @@
     padding: 2rem 0;
     text-align: center;
   }
-  
+
+  .goodBoyBadBoy {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+  }
   .dogs-list {
     display: grid;
     grid-auto-columns: 150px;
