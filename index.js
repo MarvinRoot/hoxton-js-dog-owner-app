@@ -75,6 +75,55 @@ function addDog (dog) {
 
 }
 
+function addNewDog(){
+    
+    const titleEl = document.createElement('h2')
+    titleEl.textContent = "Add a new Dog"
+
+    const formEl = document.createElement('form')
+    formEl.setAttribute('class', 'form')
+
+    const firstFormInputEl = document.createElement('input')
+    firstFormInputEl.setAttribute('type','text')
+    firstFormInputEl.setAttribute('name','name')
+    firstFormInputEl.setAttribute('placeholder','name')
+
+    const secondFormInputEl = document.createElement('input')
+    secondFormInputEl.setAttribute('type','text')
+    secondFormInputEl.setAttribute('name','image')
+    secondFormInputEl.setAttribute('placeholder','image')
+
+    const thirdFormInputEl = document.createElement('textarea')
+    thirdFormInputEl.setAttribute('rows','5')
+    thirdFormInputEl.setAttribute('name','bio')
+    thirdFormInputEl.setAttribute('placeholder','Type Bio Here')
+
+    const fourthFormInputEl = document.createElement('button')
+    fourthFormInputEl.setAttribute('type','submit')
+    fourthFormInputEl.setAttribute('name','submit')
+    fourthFormInputEl.setAttribute('value','Lets add a dog!')
+    
+    formEl.append(firstFormInputEl, secondFormInputEl, thirdFormInputEl, fourthFormInputEl)
+
+    const addDogButton = document.querySelector('dogs-list__button')
+    addDogButton.addEventListener('click', function(event){
+        event.preventDefault()
+        const name = formEl.firstFormInputEl.name.value
+        const image = formEl.secondFormInputEl.image.value
+        const bio = formEl.thirdFormInputEl.bio.value
+        
+        const dog = {
+            name: name,
+            image: image,
+            bio: bio
+        }
+        const sectionEl = document.querySelector('.main__dog-section')
+        sectionEl.innerHTML = ''
+        sectionEl.append(titleEl, formEl)
+    })
+    
+}
+
 for(const dog of data){
     addDog(dog)
 }
