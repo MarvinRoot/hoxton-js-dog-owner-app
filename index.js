@@ -1,4 +1,4 @@
-function addDog (dog) {
+function createDog(dog) {
     const liEl = document.createElement('button')
     liEl.setAttribute('class', 'dogs-list__button')
     liEl.textContent = dog.name
@@ -6,8 +6,12 @@ function addDog (dog) {
     const ulEl = document.querySelector('.dogs-list')
     ulEl.append(liEl)
 
-    liEl.addEventListener('click', function(event){
-        event.stopPropagation()
+    liEl.addEventListener('click', function(){
+        displayDogCard(dog)
+    })
+}
+
+function displayDogCard (dog) {
 
         const dogLiEl = document.createElement('li')
         dogLiEl.setAttribute('class', 'card')
@@ -47,48 +51,30 @@ function addDog (dog) {
         dogLiEl.append(titleEl, imgEl, bioTitleEl, bio, goodBoyBadBoy)
 
         const sectionEl = document.querySelector('.main__dog-section')
-        const h2El = document.querySelector('h2')
-        h2El.remove()
         sectionEl.innerHTML = ''
         sectionEl.append(dogLiEl)
 
         goodBoyButton.addEventListener('click', function(event){
             event.stopPropagation()
-
-            if(goodBoyButton.textContent = "Bad Boy") {
-                goodBoyButton.textContent = "Good Boy"
-                isNaughtyAnswer.textContent = "Yes"
-            }
-            
+            dog.isGoodDog = !dog.isGoodDog 
+            displayDogCard(dog)
         })
-
-        goodBoyButton.addEventListener('click', function(event){
-            event.stopPropagation()
-
-            if(goodBoyButton.textContent = "Good Boy") {
-                goodBoyButton.textContent = "Bad Boy"
-                isNaughtyAnswer.textContent = "No"
-            }
-        })
-    })
-    
-
 }
 
-function addNewDog(){
-    
+function createAddDogForm(){
     const titleEl = document.createElement('h2')
     titleEl.textContent = "Add a new Dog"
-
     const formEl = document.createElement('form')
     formEl.setAttribute('class', 'form')
 
     const firstFormInputEl = document.createElement('input')
+    firstFormInputEl.setAttribute('class', 'firstFormInputEl')
     firstFormInputEl.setAttribute('type','text')
     firstFormInputEl.setAttribute('name','name')
     firstFormInputEl.setAttribute('placeholder','name')
 
     const secondFormInputEl = document.createElement('input')
+    secondFormInputEl.setAttribute('class', 'secondFormInputEl')
     secondFormInputEl.setAttribute('type','text')
     secondFormInputEl.setAttribute('name','image')
     secondFormInputEl.setAttribute('placeholder','image')
@@ -102,28 +88,35 @@ function addNewDog(){
     fourthFormInputEl.setAttribute('type','submit')
     fourthFormInputEl.setAttribute('name','submit')
     fourthFormInputEl.setAttribute('value','Lets add a dog!')
+    fourthFormInputEl.textContent='Add a dog!'
     
     formEl.append(firstFormInputEl, secondFormInputEl, thirdFormInputEl, fourthFormInputEl)
+    const sectionEl = document.querySelector('.main__dog-section')
+    sectionEl.innerHTML = ''
+    sectionEl.append(titleEl, formEl)
 
-    const addDogButton = document.querySelector('dogs-list__button')
-    addDogButton.addEventListener('click', function(event){
+    fourthFormInputEl.addEventListener('click', function(event){
         event.preventDefault()
-        const name = formEl.firstFormInputEl.name.value
-        const image = formEl.secondFormInputEl.image.value
-        const bio = formEl.thirdFormInputEl.bio.value
-        
-        const dog = {
-            name: name,
-            image: image,
-            bio: bio
-        }
-        const sectionEl = document.querySelector('.main__dog-section')
-        sectionEl.innerHTML = ''
-        sectionEl.append(titleEl, formEl)
+        const name = document.querySelector('.firstFormInputEl')
+    const image = document.querySelector('.secondFormInputEl')
+    const bio = document.querySelector('textarea')
+
+    data.push({name: name.value, image: image.value, bio: bio.value})
+    const ulEl = document.querySelector('.dogs-list')
+    ulEl.innerHTML = ''
+    for(const dog of data){
+        createDog(dog)
+    }
     })
-    
 }
 
+
+const addDogButton = document.querySelector('li.dogs-list__button')
+    addDogButton.addEventListener('click', function(){
+    createAddDogForm()
+
+    })
+    
 for(const dog of data){
-    addDog(dog)
+    createDog(dog)
 }
